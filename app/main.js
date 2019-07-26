@@ -10,8 +10,14 @@ if(TNS_ENV !== 'production') {
 // Prints Vue logs when --env.production is *NOT* set while building
 Vue.config.silent = (TNS_ENV === 'production')
 
-
 new Vue({
   store,
   render: h => h('frame', [h(App)])
 }).$start()
+
+Vue.registerElement('CheckBox', () => require('nativescript-checkbox').CheckBox, {
+	model: {
+		prop: 'checked',
+		event: 'checkedChange'
+	}
+});

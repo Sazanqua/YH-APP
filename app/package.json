@@ -3,6 +3,6 @@
     "v8Flags": "--expose_gc"
   },
   "main": "main",
-  "name": "yh-app",
+  "name": "check-in-app",
   "version": "1.0.0"
 }
