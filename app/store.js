@@ -9,7 +9,8 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
   state: {
     database: null,
-    data: []
+    data: [],
+    loginResult: 3
   },
   mutations: {
     init(state, data) {
@@ -101,6 +102,7 @@ const store = new Vuex.Store({
           const comparePassword = myObservableArray.getItem(numHolder);
           if(comparePassword == data.password){
             console.log("login successful!")
+            this.state.loginResult = 1
             break;
           }
           // else{

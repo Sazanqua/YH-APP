@@ -5,7 +5,7 @@
 <TextField v-model="input.emailAddress" left="43" top="240" class="textfld" hint="Email Address" />
 <TextField secure="true" v-model="input.password" formControlName="password" left="43" top="295" class="textfld" hint="Password" />
         <Label color="#6F31AD" left="180" top="352" text="FORGOT PASSWORD?"/>
-<Button left="65" top="380" class="login_button" text="LOGIN" @tap="loginFunc"/>
+<Button :isEnabled="buttonStatus" left="65" top="380" class="login_button" text="LOGIN" @tap="loginFunc"/>
         <Label class="labelClass" left="125" top="435" text="Or Sign In Instantly"/>
 <Button left="48" top="465" class="fb_button" text="LOGIN WITH FACEBOOK" @tap="aaFunc"/>
 <Image class="logoZIndex" left="70" top="478" src="~/images/facebookLogo.png" height="20" width="20" />
@@ -29,6 +29,7 @@ import RegisterModal from "./RegisterModal";
 import AdminHome from "./Admin/AdminHome";
 
 const Toast = require('nativescript-toast');
+const timerModule = require("tns-core-modules/timer");
 
   export default {
     components: {
@@ -36,6 +37,8 @@ const Toast = require('nativescript-toast');
     },
     data() {
       return {
+        secondz: 0,
+        buttonStatus: true,
         input: {
                     emailAddress: "Yoshi",
                     password: "aa",
@@ -44,21 +47,22 @@ const Toast = require('nativescript-toast');
     }
   },
   methods: {
-    onButtonTap() {
-      this.$navigateTo(Home);
-    },
     loginFunc(){
       this.$store.dispatch("loginQuery", this.input);
-      
-      // if(this.input.emailAddress == person.emailAddress && this.input.password == person.password) {
-      //   this.input.emailAddress = "";
-      //   this.input.password = "";
-      //   this.$navigateTo(Home);
-      // }
-      // else{
-      //   const myToast = Toast.makeText('INVALID EMAIL OR PASSWORD!');
-      //   myToast.show();
-      // }
+      console.log(this.$store.state.loginResult + " haha")
+      if(this.$store.state.loginResult == 1){
+        this.$navigateTo(Home);
+      }
+      else if(this.$store.state.loginResult == 3){
+        const myToast = Toast.makeText('LOGGING IN!');   
+        myToast.show();
+        this.buttonStatus = false
+        
+      }
+      else{
+        const myToast = Toast.makeText('INVALID EMAIL OR PASSWORD!');   
+        myToast.show();
+      }
     },
     aaFunc(){
       if(this.accessLevel == 1){
