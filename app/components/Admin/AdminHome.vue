@@ -26,7 +26,7 @@
               <v-template>
                 <StackLayout>
                   <Label :text="item.name"></Label>
-            <Label :text="item.description"></Label>
+                <Label :text="item.description"></Label>
                 </StackLayout>
               </v-template>
             </ListView>
@@ -79,23 +79,23 @@ export default {
         emailAddress: "",
         password: ""
       },
-      listOfItems: [
-        { text: "June 8, 2019" },
-        { text: "June 9, 2019" },
-        { text: "June 10, 2019" }
-      ],
-      msg: "Hello",
       itemList: new ObservableArray([
         {name: 'Item 1', description: 'Item 1 description'},
         {name: 'Item 2', description: 'Item 2 description'},
         {name: 'Item 3', description: 'Item 3 description'},
       ]),
-
+      listOfItems: [
+        { text: "June 8, 2019" },
+        { text: "June 9, 2019" },
+        { text: "June 10, 2019" }
+      ],
     };
   },
   methods: {
-    wew({item}) {
-      console.log(`Tapped on ${item.name}`);
+    wew(event) {
+      // console.log(item)
+      console.log(event.index)
+  console.log(event.items)
     },
     save() {
       this.$store.dispatch("insert", this.input);
